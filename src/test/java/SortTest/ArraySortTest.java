@@ -60,4 +60,28 @@ public class ArraySortTest {
         System.out.println("逆序排序:\r\n");
         System.out.println(Arrays.toString(array));
     }
+
+    @Test
+    public void mergeSortTest() {
+        int[] array = new Random().ints(20, 0, 100).toArray();
+        ArraySort arraySort = new ArraySort();
+        arraySort.mergeSort(array, 0,array.length - 1,false);
+        System.out.println("正序排序:\r\n");
+        System.out.println(Arrays.toString(array));
+        arraySort.mergeSort(array, 0,array.length - 1,true);
+        System.out.println("逆序排序:\r\n");
+        System.out.println(Arrays.toString(array));
+    }
+
+    @Test
+    public void shellKnuthSortTest() {
+        int[] array = new Random().ints(20, 0, 100).toArray();
+        ArraySort arraySort = new ArraySort();
+        arraySort.shellKnuthSort(array,false);
+        System.out.println("正序排序:\r\n");
+        System.out.println(Arrays.toString(array));
+        arraySort.shellKnuthSort(array,true);
+        System.out.println("逆序排序:\r\n");
+        System.out.println(Arrays.toString(array));
+    }
 }

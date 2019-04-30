@@ -91,7 +91,7 @@ public class ArraySort {
     }
 
     /**
-     * 快速排序算法，对从left到right下标之间的元素进行排序
+     * 快速排序算法，对从left到right下标之间的元素进行快速排序
      *
      * @param array
      * @param left
@@ -148,4 +148,79 @@ public class ArraySort {
         array[j] = temp;
         return j;
     }
+
+    /**
+     * 归并排序算法
+     * @param array
+     * @param start
+     * @param last
+     * @param isReverse
+     */
+    public void mergeSort(int[] array,int start, int last,boolean isReverse){
+        if(last > start){
+            int mid = start + (last - start) / 2;
+            mergeSort(array,start,mid,isReverse);
+            mergeSort(array,mid+1,last,isReverse);
+            merge(array,start,mid,last,isReverse);
+        }
+    }
+
+    /**
+     * 将mid两边已排序好的数组归并成一个有序数组
+     * @param array
+     * @param start
+     * @param mid
+     * @param last
+     * @param isReverse
+     */
+    private void merge(int[] array, int start, int mid, int last, boolean isReverse) {
+        int[] temp = new int[last - start + 1];
+        int i = start;
+        int j = mid + 1;
+        int k = 0;
+        while (i <= mid && j <= last){
+            if((isReverse && array[i] > array[j]) || (!isReverse && array[i] < array[j])){
+                temp[k++] = array[i++];
+            }else {
+                temp[k++] = array[j++];
+            }
+        }
+        while (i <= mid){
+            temp[k++] = array[i++];
+        }
+        while (j <= last){
+            temp[k++] = array[j++];
+        }
+        int length = last - start + 1;
+        for (i = 0; i < length; i++) {
+            array[i + start] = temp[i];
+        }
+    }
+
+    /**
+     * 希尔排序算法
+     * @param array
+     * @param isReverse
+     */
+    public void shellKnuthSort(int[] array,boolean isReverse){
+        int step = 1;
+        int length = array.length;
+        while (step < length / 3){
+            step = step * 3 + 1;
+        }
+        while(step > 0){
+            for (int i = step; i < length; i++) {
+                int temp = array[i];
+                int j = i;
+                while (j > step - 1 && ((!isReverse && temp < array[j - step]) || (isReverse && temp > array[j - step]))){
+                    array[j] = array[j - step];
+                    j -= step;
+                }
+                array[j] = temp;
+            }
+            step = (step - 1) / 3;
+        }
+    }
+
+
 }
